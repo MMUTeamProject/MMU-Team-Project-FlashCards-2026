@@ -7,6 +7,7 @@ body {
 }
 
 .card {
+    color: aqua;
     width: 300px;
     height: 200px;
     border: 2px solid #333;
