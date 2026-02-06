@@ -1,0 +1,106 @@
+body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f7f6;
+        }
+
+.card {
+    color: aqua;
+    width: 300px;
+    height: 200px;
+    border: 2px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    user-select: none;
+}
+
+
+        h1 { color: #333; }
+        .button-container {
+            display: flex;
+            gap: 20px;
+        }
+        .btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            text-decoration: none;
+            color: white;
+            border-radius: 8px;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+    
+        .btn-create { background-color: #4CAF50; }
+        .btn-view { background-color: #2196F3; }
+        .btn-complete { background-color: #4CAF50; }
+        .btn-cancel { background-color: #6b6d70; }
+        .btn-prevous { background-color: #2196F3; }
+        .btn-next { background-color: #4CAF50; }
+
+        .btn:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        .btn-nav {
+    background: #eee;
+    border: 1px solid #ccc;
+    
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+
+    textarea{
+        width: 300px;;
+        padding: 40px;
+        margin: 40px;
+    }
+
+    label{
+        border-radius: 8px;
+        display: block;
+        
+    }
+
+        .form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.card-counter{
+display: block;
+font-size: 30px;
+background-color: #ece11b;
+gap: 30px;
+border-radius: 8px;
+padding: 15px 30px;
+border: 2px solid #333;
+}
+
+.action-group {
+    display: flex;
+    justify-content: space-between; 
+    margin-top: 20px;
+}
+
+
+.btn-nav {
+    background: #eee;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}

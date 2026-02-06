@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Flash Cards</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Create New Flash Card</h1>
+        
+        <form id="flashCardForm">
+            <label for="question">Question</label>
+            
+            <textarea id="question" placeholder="Enter the question here..." rows="4" required></textarea>
+               
+            <label for="answer">Answer</label>
+            
+            <textarea id="answer" placeholder="Enter the answer here..." rows="4" required></textarea>
+            
+            <div class="button-container">
+                <button type="button" class="btn btn-prevous">← Previous Card</button>
+                <span class="card-counter">Card 1</span>
+                <button type="button" class="btn btn-next">Next Card →</button>
+            </div>
+            
+            <hr>
+
+            <div class="button-container">
+                <a href="Home_Page.html" class="btn btn-complete">Complete</a>
+                <a href="Home_Page.html" class="btn btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
