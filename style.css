@@ -65,13 +65,20 @@ body {
         margin: 40px;
     }
 
+        #Stack-Name{
+        height: 20px;
+        width: 300px;
+        padding:5px;
+        margin: 40px;
+    }
+
     label{
         border-radius: 8px;
         display: block;
         
     }
 
-        .form-container {
+    .form-container {
     max-width: 600px;
     margin: 40px auto;
     padding: 30px;
@@ -104,3 +111,26 @@ border: 2px solid #333;
     border-radius: 5px;
     cursor: pointer;
 }
+
+
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  background-color: #8ef891;
+  width: 20%;
+  height: 70%;
+  border-radius: 12px;
+}
+
+td, th {
+  
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #7cc1f9;
+}
+
+tr:hover {background-color: #D6EEEE;}
