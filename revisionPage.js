@@ -24,3 +24,5 @@ document.getElementById("next").addEventListener("click", () => {
 });
 
 showCard();
+
+
