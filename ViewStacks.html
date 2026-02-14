@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Current Revision Stacks</h1>
+
+<table>
+  <tr>
+    <th>Stack name</th>
+    <th>Number of Cards</th>
+  </tr>
+  <tr>
+    <td>Stack 1</td>
+    <td>13</td>
+  </tr>
+  <tr>
+    <td>Stack 2</td>
+    <td>20</td>
+  </tr>
+  <tr>
+    <td>Stack 3</td>
+    <td>10</td>
+  </tr>
+  <tr>
+    <td>Stack 4</td>
+    <td>16</td>
+  </tr>
+  <tr>
+    <td>Stack 5</td>
+    <td>13</td>
+  </tr>
+  <tr>
+    <td>Stack 6</td>
+    <td>9</td>
+  </tr>
+</table>
+
+<br>
+
+<button onclick="loadCards()">Load Cards</button>
+
+<div id="cards"></div>
+
+<br>
+
+<div class="button-container">
+  <a href="Home_Page.html" class="btn btn-complete">Home</a>
+</div>
+
+<script>
+// Load and parse the text file
+async function loadCards() {
+  try {
+    const response = await fetch("cards.txt"); // your team will provide this file
+    const text = await response.text();
+
+    const cards = parseCards(text);
+    displayCards(cards);
+  } catch (error) {
+    console.error("Error loading cards:", error);
+  }
+}
+
+// Convert text file into objects
+function parseCards(text) {
+  const blocks = text.split(/\n\s*\n/); // split by blank line
+  const cards = [];
+
+  blocks.forEach(block => {
+    const qMatch = block.match(/question:\s*(.*)/i);
+    const aMatch = block.match(/answer:\s*(.*)/i);
+
+    if (qMatch && aMatch) {
+      cards.push({
+        question: qMatch[1].trim(),
+        answer: aMatch[1].trim()
+      });
+    }
+  });
+
+  return cards;
+}
+
+// Display cards on screen
+function displayCards(cards) {
+  const container = document.getElementById("cards");
+  container.innerHTML = "";
+
+  cards.forEach((card, index) => {
+    const saved = isSaved(index);
+
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <h3>Question</h3>
+      <p>${card.question}</p>
+      <h3>Answer</h3>
+      <p>${card.answer}</p>
+      <button onclick="saveCard(${index})">
+        ${saved ? "Saved ✓" : "Save Card"}
+      </button>
+      <hr>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// Save card index to localStorage
+function saveCard(index) {
+  let saved = JSON.parse(localStorage.getItem("savedCards") || "[]");
+  if (!saved.includes(index)) {
+    saved.push(index);
+    localStorage.setItem("savedCards", JSON.stringify(saved));
+  }
+  loadCards(); // refresh display
+}
+
+// Check if card is saved
+function isSaved(index) {
+  let saved = JSON.parse(localStorage.getItem("savedCards") || "[]");
+  return saved.includes(index);
+}
+</script>
+
+</body>
+</html>
