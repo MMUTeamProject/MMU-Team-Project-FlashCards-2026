@@ -53,11 +53,11 @@ function prevCardButton() {
     displayCard()
 }
 
-// Saving stacks to local server
+// save the stack to the server when the form is submitted
 
-document.getElementById("flashCardForm").addEventListener("submit", async function(e){
+document.getElementById("flashCardForm").addEventListener("submit", async function(e) {
+    e.preventDefault(); // gets stacks data if "Complete" button is pressed
 
-    e.preventDefault();
 
     if (cards.length < index + 1) {
         addCard();
@@ -67,13 +67,14 @@ document.getElementById("flashCardForm").addEventListener("submit", async functi
 
     var stackName = stackNameBox.value;
 
-    if (!stackName || cards.length === 0) {
-        alert("Stack name or cards missing!");
+    
+    if (!stackName || cards.length == 0) {  // Notify if the stack is empty
+        alert("Please enter a stack name and at least one card.");
         return;
     }
 
-    try {
-        const response = await fetch("/saveStack", {
+    try {    // Sends the stack data to the server
+        var res = await fetch("/saveStack", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -84,15 +85,15 @@ document.getElementById("flashCardForm").addEventListener("submit", async functi
             })
         });
 
-        const result = await response.json();
+        var data = await res.json();
 
-        alert(result.message);
+        alert(data.message); // notification if saved successfully
 
-        window.location.href = "Home_Page.html";
+    } catch (err) {
 
-    } catch (error) {
-        alert("Error saving stack.");
-        console.error(error);
+        console.log("something went wrong while saving", err);
+        alert("Could not save stack.");
+
     }
 
 });
