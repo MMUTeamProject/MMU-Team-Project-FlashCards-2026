@@ -2,7 +2,9 @@ var cards = []
 var questionBox = document.getElementById("question");
 var answerBox = document.getElementById("answer");
 var counter = document.getElementById("counter");
+var stackNameBox = document.getElementById("Stack-Name");
 var index = 0
+
 
 function addCard() {
     var questionText = questionBox.value
@@ -50,3 +52,47 @@ function prevCardButton() {
     index -= 1
     displayCard()
 }
+
+// Saving stacks to local server
+
+document.getElementById("flashCardForm").addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    if (cards.length < index + 1) {
+        addCard();
+    } else {
+        updateCard();
+    }
+
+    var stackName = stackNameBox.value;
+
+    if (!stackName || cards.length === 0) {
+        alert("Stack name or cards missing!");
+        return;
+    }
+
+    try {
+        const response = await fetch("/saveStack", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                stackName: stackName,
+                cards: cards
+            })
+        });
+
+        const result = await response.json();
+
+        alert(result.message);
+
+        window.location.href = "Home_Page.html";
+
+    } catch (error) {
+        alert("Error saving stack.");
+        console.error(error);
+    }
+
+});
