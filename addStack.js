@@ -38,15 +38,12 @@ function displayCard() {
 }
 
 function nextCardButton() {
-  if (!isInputValid()) return alert("Please complete the current card before proceeding.");
-  
-    if (cards.length < index) {
-        addCard()
-    } else {
-        updateCard()
-    }
-    index += 1
-    displayCard()
+    if (!isInputValid()) return alert("Please complete the current card before proceeding.");
+
+    // Corrected logic: index starts at 0, so if index matches length, it's a new card
+    index >= cards.length ? addCard() : updateCard();
+    index++;
+    displayCard();
 }
 
 function prevCardButton() {
@@ -58,45 +55,31 @@ function prevCardButton() {
 
 // save the stack to the server when the form is submitted
 
-document.getElementById("flashCardForm").addEventListener("submit", async function(e) {
-    e.preventDefault(); // gets stacks data if "Complete" button is pressed
+document.getElementById("flashCardForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-
-    if (cards.length < index + 1) {
-        addCard();
-    } else {
-        updateCard();
+    // 1. Save the current card first if valid
+    if (isInputValid()) {
+        index >= cards.length ? addCard() : updateCard();
     }
 
-    let stackName = stackNameBox.value;
-
-    
-    if (!stackName || cards.length == 0) {  // Notify if the stack is empty
-        alert("Please enter a stack name and at least one card.");
+    // 2. Now perform final validation on the whole stack
+    let stackName = stackNameBox.value.trim();
+    if (!stackName || cards.length === 0) {
+        alert("Please provide a stack name and ensure at least one card is completed.");
         return;
     }
 
-    try {    // Sends the stack data to the server
+    try {
         let res = await fetch("/saveStack", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                stackName: stackName,
-                cards: cards
-            })
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ stackName, cards })
         });
-
         let data = await res.json();
-
-        alert(data.message); // notification if saved successfully
-
+        alert(data.message);
     } catch (err) {
-
-        console.log("something went wrong while saving", err);
         alert("Could not save stack.");
-
     }
-
 });
+
