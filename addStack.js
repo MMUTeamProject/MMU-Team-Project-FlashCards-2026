@@ -1,20 +1,21 @@
-var cards = []
-var questionBox = document.getElementById("question");
-var answerBox = document.getElementById("answer");
-var counter = document.getElementById("counter");
-var stackNameBox = document.getElementById("Stack-Name");
-var index = 0
+let cards = []
+let questionBox = document.getElementById("question");
+let answerBox = document.getElementById("answer");
+let counter = document.getElementById("counter");
+let stackNameBox = document.getElementById("Stack-Name");
+let index = 0
+const isInputValid = () => questionBox.value.trim() !== "" && answerBox.value.trim() !== "";
 
 
 function addCard() {
-    var questionText = questionBox.value
-    var answerText = answerBox.value
+    let questionText = questionBox.value
+    let answerText = answerBox.value
     cards.push({ question: questionText, answer: answerText })
 }
 
 function updateCard() {
-    var questionText = questionBox.value
-    var answerText = answerBox.value
+    let questionText = questionBox.value
+    let answerText = answerBox.value
     cards[index] = { question: questionText, answer: answerText }
 }
 
@@ -29,7 +30,7 @@ function displayCard() {
     answerBox.value = cards[index].answer
     counter.innerText = "Card " + (index + 1).toString()
 
-    var message = ""
+    let message = ""
     for (let i = 0; i < cards.length; i++) {
         message += "\n" + (cards[i].question).toString() + "| " + (cards[i].answer).toString()
     }
@@ -37,6 +38,8 @@ function displayCard() {
 }
 
 function nextCardButton() {
+  if (!isInputValid()) return alert("Please complete the current card before proceeding.");
+  
     if (cards.length < index) {
         addCard()
     } else {
@@ -65,7 +68,7 @@ document.getElementById("flashCardForm").addEventListener("submit", async functi
         updateCard();
     }
 
-    var stackName = stackNameBox.value;
+    let stackName = stackNameBox.value;
 
     
     if (!stackName || cards.length == 0) {  // Notify if the stack is empty
@@ -74,7 +77,7 @@ document.getElementById("flashCardForm").addEventListener("submit", async functi
     }
 
     try {    // Sends the stack data to the server
-        var res = await fetch("/saveStack", {
+        let res = await fetch("/saveStack", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -85,7 +88,7 @@ document.getElementById("flashCardForm").addEventListener("submit", async functi
             })
         });
 
-        var data = await res.json();
+        let data = await res.json();
 
         alert(data.message); // notification if saved successfully
 
