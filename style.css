@@ -68,3 +68,79 @@ p {
 .icon {
     font-size: 1.2rem;
 }
+/* --- Flashcard Creation Specific Styles --- */
+.form-container {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 550px;
+    text-align: left;
+}
+
+.form-container h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.form-container label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #4a5568;
+}
+
+.form-container textarea {
+    width: 100%;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 15px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.form-container textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+/* Navigation Toolbar */
+.card-counter {
+    font-weight: 700;
+    color: #3b82f6;
+    background: #eff6ff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.form-container .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 10px 0;
+}
+
+/* Separator */
+hr {
+    border: 0;
+    border-top: 1px solid #e2e8f0;
+    margin: 25px 0;
+}
+
+/* Button Colour Overrides */
+.btn-prevous { background-color: #64748b; }
+.btn-next { background-color: #3b82f6; }
+.btn-home { background-color: #94a3b8; }
+.btn-cancel { background-color: #ef4444; }
+
+.btn {
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+}
