@@ -11,6 +11,7 @@
   <tr>
     <th>Stack name</th>
     <th>Number of Cards</th>
+    <th>View</th>
   </tr>
 </table>
 
@@ -20,19 +21,29 @@
 
 <br><br>
 
+<!-- VIEW STACK CONTENT BOX -->
+<div id="viewer" style="display:none; margin-top:20px;">
+  <h2>Stack Contents</h2>
+  <textarea id="viewerText" rows="15" cols="60" readonly></textarea>
+</div>
+
+<br>
+
 <div class="button-container">
   <a href="Home_Page.html" class="btn btn-complete">Home</a>
 </div>
 
 <script>
+let loadedStacks = [];
+
 // Load and parse stacks.txt
 async function loadStacks() {
   try {
-    const response = await fetch("stacks.txt"); //double check file name with Karo
+    const response = await fetch("stacks.txt");
     const text = await response.text();
 
-    const stacks = parseStacks(text);
-    displayStacks(stacks);
+    loadedStacks = parseStacks(text);
+    displayStacks(loadedStacks);
 
   } catch (error) {
     console.error("Error loading stacks:", error);
@@ -50,7 +61,6 @@ function parseStacks(text) {
     line = line.trim();
 
     if (line.startsWith("stack:")) {
-      // Start a new stack
       if (currentStack) stacks.push(currentStack);
 
       currentStack = {
@@ -72,7 +82,6 @@ function parseStacks(text) {
     }
   });
 
-  // Push last stack if exists
   if (currentStack) stacks.push(currentStack);
 
   return stacks;
@@ -86,6 +95,7 @@ function displayStacks(stacks) {
     <tr>
       <th>Stack name</th>
       <th>Number of Cards</th>
+      <th>View</th>
     </tr>
   `;
 
@@ -95,19 +105,36 @@ function displayStacks(stacks) {
     row.innerHTML = `
       <td>${stack.name}</td>
       <td>${stack.cards.length}</td>
+      <td><button onclick="viewStack('${stack.name}')">View</button></td>
     `;
 
-    // Make row clickable
+    // Clicking the row still loads revisionpage.html
     row.style.cursor = "pointer";
-    row.onclick = () => {
-      localStorage.setItem("selectedStack", stack.name);
-      window.location.href = "revisionpage.html";
+    row.onclick = (event) => {
+      if (event.target.tagName !== "BUTTON") { 
+        localStorage.setItem("selectedStack", stack.name);
+        window.location.href = "revisionpage.html";
+      }
     };
 
     table.appendChild(row);
   });
 }
 
+// Show stack contents in a text box
+function viewStack(stackName) {
+  const stack = loadedStacks.find(s => s.name === stackName);
+
+  let text = `Stack: ${stack.name}\n\n`;
+
+  stack.cards.forEach((card, i) => {
+    text += `Q${i+1}: ${card.question}\n`;
+    text += `A${i+1}: ${card.answer}\n\n`;
+  });
+
+  document.getElementById("viewerText").value = text;
+  document.getElementById("viewer").style.display = "block";
+}
 </script>
 
 </body>
