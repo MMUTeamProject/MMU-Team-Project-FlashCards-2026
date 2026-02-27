@@ -7,121 +7,107 @@
 
 <h1>Current Revision Stacks</h1>
 
-<table>
+<table id="stackTable">
   <tr>
     <th>Stack name</th>
     <th>Number of Cards</th>
-  </tr>
-  <tr>
-    <td>Stack 1</td>
-    <td>13</td>
-  </tr>
-  <tr>
-    <td>Stack 2</td>
-    <td>20</td>
-  </tr>
-  <tr>
-    <td>Stack 3</td>
-    <td>10</td>
-  </tr>
-  <tr>
-    <td>Stack 4</td>
-    <td>16</td>
-  </tr>
-  <tr>
-    <td>Stack 5</td>
-    <td>13</td>
-  </tr>
-  <tr>
-    <td>Stack 6</td>
-    <td>9</td>
   </tr>
 </table>
 
 <br>
 
-<button onclick="loadCards()">Load Cards</button>
+<button onclick="loadStacks()">Load Stacks</button>
 
-<div id="cards"></div>
-
-<br>
+<br><br>
 
 <div class="button-container">
   <a href="Home_Page.html" class="btn btn-complete">Home</a>
 </div>
 
 <script>
-// Load and parse the text file
-async function loadCards() {
+// Load and parse stacks.txt
+async function loadStacks() {
   try {
-    const response = await fetch("cards.txt"); // your team will provide this file
+    const response = await fetch("stacks.txt"); //double check file name with Karo
     const text = await response.text();
 
-    const cards = parseCards(text);
-    displayCards(cards);
+    const stacks = parseStacks(text);
+    displayStacks(stacks);
+
   } catch (error) {
-    console.error("Error loading cards:", error);
+    console.error("Error loading stacks:", error);
   }
 }
 
-// Convert text file into objects
-function parseCards(text) {
-  const blocks = text.split(/\n\s*\n/); // split by blank line
-  const cards = [];
+// Convert text file into stack objects
+function parseStacks(text) {
+  const lines = text.split("\n");
 
-  blocks.forEach(block => {
-    const qMatch = block.match(/question:\s*(.*)/i);
-    const aMatch = block.match(/answer:\s*(.*)/i);
+  const stacks = [];
+  let currentStack = null;
 
-    if (qMatch && aMatch) {
-      cards.push({
-        question: qMatch[1].trim(),
-        answer: aMatch[1].trim()
-      });
+  lines.forEach(line => {
+    line = line.trim();
+
+    if (line.startsWith("stack:")) {
+      // Start a new stack
+      if (currentStack) stacks.push(currentStack);
+
+      currentStack = {
+        name: line.replace("stack:", "").trim(),
+        cards: []
+      };
+    }
+
+    if (line.startsWith("question:")) {
+      const question = line.replace("question:", "").trim();
+      currentStack.cards.push({ question, answer: "" });
+    }
+
+    if (line.startsWith("answer:")) {
+      const answer = line.replace("answer:", "").trim();
+      if (currentStack.cards.length > 0) {
+        currentStack.cards[currentStack.cards.length - 1].answer = answer;
+      }
     }
   });
 
-  return cards;
+  // Push last stack if exists
+  if (currentStack) stacks.push(currentStack);
+
+  return stacks;
 }
 
-// Display cards on screen
-function displayCards(cards) {
-  const container = document.getElementById("cards");
-  container.innerHTML = "";
+// Display stacks in the table
+function displayStacks(stacks) {
+  const table = document.getElementById("stackTable");
 
-  cards.forEach((card, index) => {
-    const saved = isSaved(index);
+  table.innerHTML = `
+    <tr>
+      <th>Stack name</th>
+      <th>Number of Cards</th>
+    </tr>
+  `;
 
-    const div = document.createElement("div");
-    div.innerHTML = `
-      <h3>Question</h3>
-      <p>${card.question}</p>
-      <h3>Answer</h3>
-      <p>${card.answer}</p>
-      <button onclick="saveCard(${index})">
-        ${saved ? "Saved ✓" : "Save Card"}
-      </button>
-      <hr>
+  stacks.forEach(stack => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${stack.name}</td>
+      <td>${stack.cards.length}</td>
     `;
-    container.appendChild(div);
+
+    // Make row clickable
+    row.style.cursor = "pointer";
+    row.onclick = () => {
+      localStorage.setItem("selectedStack", stack.name);
+      window.location.href = "revisionpage.html";
+    };
+
+    table.appendChild(row);
   });
 }
 
-// Save card index to localStorage
-function saveCard(index) {
-  let saved = JSON.parse(localStorage.getItem("savedCards") || "[]");
-  if (!saved.includes(index)) {
-    saved.push(index);
-    localStorage.setItem("savedCards", JSON.stringify(saved));
-  }
-  loadCards(); // refresh display
-}
-
-// Check if card is saved
-function isSaved(index) {
-  let saved = JSON.parse(localStorage.getItem("savedCards") || "[]");
-  return saved.includes(index);
-}
 </script>
 
 </body>
