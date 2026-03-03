@@ -81,4 +81,5 @@ document.getElementById("flashCardForm").addEventListener("submit", function (e)
     } catch (err) {
         alert("Error saving to local storage.");
     }
+
 });
