@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
@@ -7,15 +8,16 @@
     <title>Create Flash Cards</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <div class="form-container">
         <h1>Create New Flash Card</h1>
-        
-        
-        
- 
-<form id="flashCardForm">
+
+
+
+
+        <form id="flashCardForm">
             <label for="Stack Name">Stack Name</label>
             <br>
                 <select name="Stack Name" id="Stack Name">
@@ -31,19 +33,19 @@
             <br>  
             <br>  
             <label for="question">Question</label>
-            
+
             <textarea id="question" placeholder="Enter the question here..." rows="4" required></textarea>
-               
+
             <label for="answer">Answer</label>
-            
+
             <textarea id="answer" placeholder="Enter the answer here..." rows="4" required></textarea>
-            
+
             <div class="button-container">
-                <button type="button" class="btn btn-prevous", onclick="prevCardButton()">← Previous Card</button>
-                <span class="card-counter", id="counter">Card 1</span>
-                <button type="button" class="btn btn-next", onclick="nextCardButton()">Next Card →</button>
+                <button type="button" class="btn btn-prevous" , onclick="prevCardButton()">← Previous Card</button>
+                <span class="card-counter" , id="counter">Card 1</span>
+                <button type="button" class="btn btn-next" , onclick="nextCardButton()">Next Card →</button>
             </div>
-            
+
             <hr>
 
             <div class="button-container">
@@ -55,4 +57,5 @@
     </div>
     <script src="addStack.js"></script>
 </body>
+
 </html>
