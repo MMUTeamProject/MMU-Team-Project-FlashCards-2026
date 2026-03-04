@@ -1,141 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Revision Stacks</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<h1>Current Revision Stacks</h1>
+    <div class="view-container">
+        <h1>Current Revision Stacks</h1>
 
-<table id="stackTable">
-  <tr>
-    <th>Stack name</th>
-    <th>Number of Cards</th>
-    <th>View</th>
-  </tr>
-</table>
+        <table id="stackTable" class="styled-table">
+            <tr>
+                <th>Stack Name</th>
+                <th>Number of Cards</th>
+                <th>View</th>
+            </tr>
+        </table>
 
-<br>
+        <div class="button-container" style="margin-top: 20px;">
+            <button class="btn btn-view" onclick="loadStacks()">Load Stacks</button>
+        </div>
 
-<button onclick="loadStacks()">Load Stacks</button>
+        <div id="viewer" class="viewer-box">
+            <h2>Stack Contents</h2>
+            <textarea id="viewerText" rows="15" readonly></textarea>
+        </div>
 
-<br><br>
+        <div class="button-container" style="margin-top: 25px;">
+            <a href="Home_Page.html" class="btn btn-home">Home</a>
+        </div>
+    </div>
 
-<!-- VIEW STACK CONTENT BOX -->
-<div id="viewer" style="display:none; margin-top:20px;">
-  <h2>Stack Contents</h2>
-  <textarea id="viewerText" rows="15" cols="60" readonly></textarea>
-</div>
-
-<br>
-
-<div class="button-container">
-  <a href="Home_Page.html" class="btn btn-complete">Home</a>
-</div>
-
-<script>
-let loadedStacks = [];
-
-// Load and parse stacks.txt
-async function loadStacks() {
-  try {
-    const response = await fetch("stacks.txt");
-    const text = await response.text();
-
-    loadedStacks = parseStacks(text);
-    displayStacks(loadedStacks);
-
-  } catch (error) {
-    console.error("Error loading stacks:", error);
-  }
-}
-
-// Convert text file into stack objects
-function parseStacks(text) {
-  const lines = text.split("\n");
-
-  const stacks = [];
-  let currentStack = null;
-
-  lines.forEach(line => {
-    line = line.trim();
-
-    if (line.startsWith("stack:")) {
-      if (currentStack) stacks.push(currentStack);
-
-      currentStack = {
-        name: line.replace("stack:", "").trim(),
-        cards: []
-      };
-    }
-
-    if (line.startsWith("question:")) {
-      const question = line.replace("question:", "").trim();
-      currentStack.cards.push({ question, answer: "" });
-    }
-
-    if (line.startsWith("answer:")) {
-      const answer = line.replace("answer:", "").trim();
-      if (currentStack.cards.length > 0) {
-        currentStack.cards[currentStack.cards.length - 1].answer = answer;
-      }
-    }
-  });
-
-  if (currentStack) stacks.push(currentStack);
-
-  return stacks;
-}
-
-// Display stacks in the table
-function displayStacks(stacks) {
-  const table = document.getElementById("stackTable");
-
-  table.innerHTML = `
-    <tr>
-      <th>Stack name</th>
-      <th>Number of Cards</th>
-      <th>View</th>
-    </tr>
-  `;
-
-  stacks.forEach(stack => {
-    const row = document.createElement("tr");
-
-    row.innerHTML = `
-      <td>${stack.name}</td>
-      <td>${stack.cards.length}</td>
-      <td><button onclick="viewStack('${stack.name}')">View</button></td>
-    `;
-
-    // Clicking the row still loads revisionpage.html
-    row.style.cursor = "pointer";
-    row.onclick = (event) => {
-      if (event.target.tagName !== "BUTTON") { 
-        localStorage.setItem("selectedStack", stack.name);
-        window.location.href = "revisionpage.html";
-      }
-    };
-
-    table.appendChild(row);
-  });
-}
-
-// Show stack contents in a text box
-function viewStack(stackName) {
-  const stack = loadedStacks.find(s => s.name === stackName);
-
-  let text = `Stack: ${stack.name}\n\n`;
-
-  stack.cards.forEach((card, i) => {
-    text += `Q${i+1}: ${card.question}\n`;
-    text += `A${i+1}: ${card.answer}\n\n`;
-  });
-
-  document.getElementById("viewerText").value = text;
-  document.getElementById("viewer").style.display = "block";
-}
-</script>
-
+    <script src="viewStacks.js"></script>
 </body>
+
 </html>
