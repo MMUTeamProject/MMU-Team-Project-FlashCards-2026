@@ -144,3 +144,144 @@ hr {
     border: none;
     font-family: inherit;
 }
+
+/* viewStacks page styling */
+.view-container {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+}
+
+/* Styled Table */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.styled-table th {
+    background: #3b82f6;
+    color: white;
+    padding: 14px;
+    font-size: 16px;
+    text-align: left;
+}
+
+.styled-table td {
+    padding: 14px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #2d3748;
+}
+
+.styled-table tr:hover {
+    background: #f1f5f9;
+}
+
+/* View button inside table */
+.styled-table button {
+    background: #10b981;
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.styled-table button:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}
+
+/* Viewer Box */
+.viewer-box {
+    display: none;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    margin-top: 30px;
+    text-align: left;
+}
+
+.viewer-box textarea {
+    width: 100%;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 15px;
+    font-family: inherit;
+    background: #f8fafc;
+    resize: none;
+}
+
+/* Prevent global body flex from breaking perspective on revision page */
+.revision-body {
+    display: block !important;
+    height: auto !important;
+    justify-content: unset !important;
+    align-items: unset !important;
+}
+
+/* Flip card container */
+.flip-card {
+    background-color: transparent;
+    width: 320px;
+    height: 220px;
+    perspective: 1000px; /* Enables 3D flip */
+    margin: 40px auto;
+}
+
+/* Inner wrapper */
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s ease;
+    transform-style: preserve-3d;
+}
+
+/* Flip on hover */
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front & back faces */
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    background: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Back face rotated */
+.flip-card-back {
+    transform: rotateY(180deg);
+}
+
+/* Prevent clipping from parent containers */
+.flip-card,
+.flip-card-inner,
+.flip-card-front,
+.flip-card-back {
+    overflow: visible !important;
+}
