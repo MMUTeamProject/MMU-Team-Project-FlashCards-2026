@@ -5,28 +5,28 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    /* Soft gradient background */
-    background: linear-gradient(135deg, #f4f7f6 0%, #e2e8f0 100%);
+    background: #2F2F2F;
+    color: white;
 }
 
 .home-container {
-    background: rgba(255, 255, 255, 0.8);
+    background: #3A3A3A;
     backdrop-filter: blur(10px);
     padding: 3rem;
     border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
     text-align: center;
-    border: 1px solid white;
+    border: 1px solid #1F1F1F;
 }
 
 h1 { 
-    color: #2d3748; 
+    color: white;
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
 }
 
 p {
-    color: #718096;
+    color: #cccccc;
     margin-bottom: 2rem;
 }
 
@@ -47,36 +47,42 @@ p {
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
 }
 
+/* Primary buttons */
 .btn-create { 
-    background-color: #10b981; 
-    box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.3);
+    background-color: #17199b;
+    box-shadow: 0 4px 14px rgba(23, 25, 155, 0.4);
 }
 
 .btn-view { 
-    background-color: #3b82f6; 
-    box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.3);
+    background-color: #3A3A3A;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
 }
 
 .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.6);
     filter: brightness(1.1);
 }
 
 .icon {
     font-size: 1.2rem;
 }
-/* --- Flashcard Creation Specific Styles --- */
+
+/* --- Flashcard Creation Page --- */
 .form-container {
-    background: #ffffff;
+    background: #3A3A3A;
     padding: 2rem;
     border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     width: 100%;
     max-width: 550px;
     text-align: left;
+    color: white;
 }
 
 .form-container h1 {
@@ -88,31 +94,31 @@ p {
     display: block;
     font-weight: 600;
     margin-bottom: 8px;
-    color: #4a5568;
+    color: white;
 }
 
 .form-container textarea {
     width: 100%;
-    border: 2px solid #e2e8f0;
+    border: 2px solid #555;
     border-radius: 10px;
     padding: 12px;
     font-size: 15px;
     margin-bottom: 20px;
-    box-sizing: border-box;
-    font-family: inherit;
+    background: #2F2F2F;
+    color: white;
     transition: border-color 0.2s;
 }
 
 .form-container textarea:focus {
     outline: none;
-    border-color: #3b82f6;
+    border-color: #17199b;
 }
 
-/* Navigation Toolbar */
+/* Navigation counter */
 .card-counter {
     font-weight: 700;
-    color: #3b82f6;
-    background: #eff6ff;
+    color: white;
+    background: #17199b;
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 14px;
@@ -129,28 +135,22 @@ p {
 /* Separator */
 hr {
     border: 0;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid #555;
     margin: 25px 0;
 }
 
-/* Button Colour Overrides */
-.btn-prevous { background-color: #64748b; }
-.btn-next { background-color: #3b82f6; }
-.btn-home { background-color: #94a3b8; }
-.btn-cancel { background-color: #ef4444; }
-
-.btn {
-    cursor: pointer;
-    border: none;
-    font-family: inherit;
-}
+/* Button overrides */
+.btn-prevous { background-color: #3A3A3A; }
+.btn-next { background-color: #17199b; }
+.btn-home { background-color: #1F1F1F; }
+.btn-cancel { background-color: #8b0000; }
 
 /* viewStacks page styling */
 .view-container {
-    background: #ffffff;
+    background: #3A3A3A;
     padding: 2.5rem;
     border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     width: 100%;
     max-width: 900px;
     text-align: center;
@@ -161,14 +161,14 @@ hr {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background: white;
+    background: #2F2F2F;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
 }
 
 .styled-table th {
-    background: #3b82f6;
+    background: #17199b;
     color: white;
     padding: 14px;
     font-size: 16px;
@@ -177,17 +177,17 @@ hr {
 
 .styled-table td {
     padding: 14px;
-    border-bottom: 1px solid #e2e8f0;
-    color: #2d3748;
+    border-bottom: 1px solid #555;
+    color: white;
 }
 
 .styled-table tr:hover {
-    background: #f1f5f9;
+    background: #3A3A3A;
 }
 
 /* View button inside table */
 .styled-table button {
-    background: #10b981;
+    background: #17199b;
     color: white;
     padding: 8px 14px;
     border: none;
@@ -205,26 +205,26 @@ hr {
 /* Viewer Box */
 .viewer-box {
     display: none;
-    background: #ffffff;
+    background: #3A3A3A;
     padding: 20px;
     border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
     margin-top: 30px;
     text-align: left;
 }
 
 .viewer-box textarea {
     width: 100%;
-    border: 2px solid #e2e8f0;
+    border: 2px solid #555;
     border-radius: 10px;
     padding: 12px;
     font-size: 15px;
-    font-family: inherit;
-    background: #f8fafc;
+    background: #2F2F2F;
+    color: white;
     resize: none;
 }
 
-/* Prevent global body flex from breaking perspective on revision page */
+/* Revision page override */
 .revision-body {
     display: block !important;
     height: auto !important;
@@ -237,7 +237,7 @@ hr {
     background-color: transparent;
     width: 320px;
     height: 220px;
-    perspective: 1000px; /* Enables 3D flip */
+    perspective: 1000px;
     margin: 40px auto;
 }
 
@@ -262,15 +262,15 @@ hr {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    background: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    background: #3A3A3A;
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    color: white;
 }
 
 /* Back face rotated */
@@ -278,7 +278,6 @@ hr {
     transform: rotateY(180deg);
 }
 
-/* Prevent clipping from parent containers */
 .flip-card,
 .flip-card-inner,
 .flip-card-front,
