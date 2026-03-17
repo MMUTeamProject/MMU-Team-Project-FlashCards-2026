@@ -251,8 +251,8 @@ hr {
     transform-style: preserve-3d;
 }
 
-/* Flip on hover */
-.flip-card:hover .flip-card-inner {
+/* Replace your .flip-card:hover with this class-based trigger */
+.flip-card-inner.is-flipped {
     transform: rotateY(180deg);
 }
 
