@@ -3,8 +3,20 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- 1. SETUP VARIABLES (Moved inside here) ---
     let allStacks = JSON.parse(localStorage.getItem("flashcardStacks") || "[]");
-    let currentStack = allStacks[0]?.cards || []; 
+
+    // 2. Get the NAME of the stack you clicked on the previous page
+    const selectedStackName = localStorage.getItem("selectedStack");
+
+    // 3. Find the specific stack that matches that name
+    const stackToLoad = allStacks.find(s => s.stackName === selectedStackName);
+
+    // 4. Set your variables based on THAT stack
+    let currentStack = stackToLoad ? stackToLoad.cards : []
     let index = 0;
+
+    // Update the Title to match the stack name
+    const stackTitle = document.getElementById("stack-title");
+    if (stackTitle) stackTitle.textContent = selectedStackName || "Revision";
 
     const questionP = document.getElementById("display-question");
     const answerP = document.getElementById("display-answer");

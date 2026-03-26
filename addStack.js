@@ -2,7 +2,7 @@ let cards = [];
 let questionBox = document.getElementById("question");
 let answerBox = document.getElementById("answer");
 let counter = document.getElementById("counter");
-let stackNameBox = document.getElementById("Stack-Name");
+let stackNameBox = document.getElementById("Stack Name");
 let index = 0;
 
 const isInputValid = () => questionBox.value.trim() !== "" && answerBox.value.trim() !== "";
