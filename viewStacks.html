@@ -25,9 +25,15 @@
             <button class="btn btn-view" onclick="loadStacks()">Load Stacks</button>
         </div>
 
+        <!-- Viewer Box (now includes Edit + Save buttons) -->
         <div id="viewer" class="viewer-box">
             <h2>Stack Contents</h2>
             <textarea id="viewerText" rows="15" readonly></textarea>
+
+            <div class="button-container" style="margin-top: 15px;">
+                <button id="editBtn" class="btn btn-view" style="display:none;" onclick="enableEditing()">Edit Stack</button>
+                <button id="saveBtn" class="btn btn-create" style="display:none;" onclick="saveEditedStack()">Save Changes</button>
+            </div>
         </div>
 
         <div class="button-container" style="margin-top: 25px;">
