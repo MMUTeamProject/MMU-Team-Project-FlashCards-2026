@@ -1,7 +1,44 @@
 
-let cards = [];
-let index = 0;
-let displayAnswer = false;
+
+function initializeDarkMode() {
+    const darkModeBtn = document.getElementById('darkModeBtn');
+    const htmlElement = document.documentElement;
+    
+    if (!darkModeBtn) return; // Exit if dark mode button doesn't exist
+    
+    // Check for saved preference
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    htmlElement.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+    
+    darkModeBtn.addEventListener('click', () => {
+        const currentTheme = htmlElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        htmlElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    });
+}
+
+function updateThemeIcon(theme) {
+    const icon = document.querySelector('.theme-icon');
+    if (icon) {
+        icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+}
+
+// Initialize dark mode when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeDarkMode);
+} else {
+    initializeDarkMode();
+}
+
+
+let revisionCards = [];
+let revisionIndex = 0;
+let revisionDisplayAnswer = false;
 
 const cardElement = document.getElementById("card");
 const nextButton = document.getElementById("next");
@@ -12,8 +49,8 @@ function getStackNameFromURL() {
   return params.get("stack");
 }
 
-// Load the stack from server
-async function loadStack() {
+// Load the stack from localStorage
+function loadStack() {
 
   const stackName = getStackNameFromURL();
 
@@ -22,8 +59,7 @@ async function loadStack() {
     return;
   }
 
-  const response = await fetch("/getStacks");
-  const stacks = await response.json();
+  const stacks = JSON.parse(localStorage.getItem("flashcardStacks") || "[]");
 
   // Find the correct stack
   const selectedStack = stacks.find(s => s.stackName === stackName);
@@ -33,9 +69,9 @@ async function loadStack() {
     return;
   }
 
-  cards = selectedStack.cards;
+  revisionCards = selectedStack.cards;
 
-  if (cards.length === 0) {
+  if (revisionCards.length === 0) {
     cardElement.innerText = "This stack has no cards.";
     return;
   }
@@ -44,25 +80,29 @@ async function loadStack() {
 }
 
 function showCard() {
-  const card = cards[index];
+  const card = revisionCards[revisionIndex];
   cardElement.innerText =
-    displayAnswer ? card.answer : card.question;
+    revisionDisplayAnswer ? card.answer : card.question;
 }
 
 // Click to flip
-cardElement.addEventListener("click", () => {
-  displayAnswer = !displayAnswer;
-  showCard();
-});
+if (cardElement) {
+  cardElement.addEventListener("click", () => {
+    revisionDisplayAnswer = !revisionDisplayAnswer;
+    showCard();
+  });
+}
 
 // Next button
-nextButton.addEventListener("click", () => {
-  if (cards.length === 0) return;
+if (nextButton) {
+  nextButton.addEventListener("click", () => {
+    if (revisionCards.length === 0) return;
 
-  index = (index + 1) % cards.length;
-  displayAnswer = false;
-  showCard();
-});
+    revisionIndex = (revisionIndex + 1) % revisionCards.length;
+    revisionDisplayAnswer = false;
+    showCard();
+  });
+}
 
 // Load stack when page loads
 loadStack();

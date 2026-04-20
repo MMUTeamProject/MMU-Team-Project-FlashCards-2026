@@ -1,3 +1,19 @@
+:root {
+    --bg-primary: linear-gradient(135deg, #f4f7f6 0%, #e2e8f0 100%);
+    --bg-secondary: rgba(255, 255, 255, 0.8);
+    --text-primary: #2d3748;
+    --text-secondary: #718096;
+    --border-color: white;
+}
+
+html[data-theme="dark"] {
+    --bg-primary: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    --bg-secondary: rgba(45, 55, 72, 0.8);
+    --text-primary: #f7fafc;
+    --text-secondary: #cbd5e0;
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
 body {
     font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
     display: flex;
@@ -5,29 +21,32 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    /* Soft gradient background */
-    background: linear-gradient(135deg, #f4f7f6 0%, #e2e8f0 100%);
+    background: var(--bg-primary);
+    transition: background 0.3s ease;
 }
 
 .home-container {
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--bg-secondary);
     backdrop-filter: blur(10px);
     padding: 3rem;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     text-align: center;
-    border: 1px solid white;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
 }
 
 h1 { 
-    color: #2d3748; 
+    color: var(--text-primary); 
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
 }
 
 p {
-    color: #718096;
+    color: var(--text-secondary);
     margin-bottom: 2rem;
+    transition: color 0.3s ease;
 }
 
 .button-container {
@@ -68,39 +87,78 @@ p {
 .icon {
     font-size: 1.2rem;
 }
-/* --- Flashcard Creation Specific Styles --- */
+
+.dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1) rotate(20deg);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode-toggle:active {
+    transform: scale(0.95);
+}
+
+.theme-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
 .form-container {
-    background: #ffffff;
+    background: var(--bg-secondary);
     padding: 2rem;
     border-radius: 16px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     width: 100%;
     max-width: 550px;
     text-align: left;
+    transition: all 0.3s ease;
 }
 
 .form-container h1 {
     text-align: center;
     margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
 }
 
 .form-container label {
     display: block;
     font-weight: 600;
     margin-bottom: 8px;
-    color: #4a5568;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
 }
 
 .form-container textarea {
     width: 100%;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--border-color);
     border-radius: 10px;
     padding: 12px;
     font-size: 15px;
     margin-bottom: 20px;
     box-sizing: border-box;
     font-family: inherit;
-    transition: border-color 0.2s;
+    transition: all 0.2s;
+    background: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 .form-container textarea:focus {
@@ -108,14 +166,35 @@ p {
     border-color: #3b82f6;
 }
 
-/* Navigation Toolbar */
+.form-container select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 15px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: inherit;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.form-container select:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
 .card-counter {
     font-weight: 700;
     color: #3b82f6;
-    background: #eff6ff;
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--text-primary);
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 14px;
+    transition: all 0.3s ease;
 }
 
 .form-container .button-container {
@@ -126,14 +205,14 @@ p {
     margin: 10px 0;
 }
 
-/* Separator */
+
 hr {
     border: 0;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--border-color);
     margin: 25px 0;
 }
 
-/* Button Colour Overrides */
+
 .btn-prevous { background-color: #64748b; }
 .btn-next { background-color: #3b82f6; }
 .btn-home { background-color: #94a3b8; }
@@ -145,26 +224,32 @@ hr {
     font-family: inherit;
 }
 
-/* viewStacks page styling */
+
 .view-container {
-    background: #ffffff;
+    background: var(--bg-secondary);
     padding: 2.5rem;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.08);
     width: 100%;
     max-width: 900px;
     text-align: center;
+    transition: all 0.3s ease;
 }
 
-/* Styled Table */
+.view-container h1 {
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+}
+
 .styled-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background: white;
+    background: var(--bg-secondary);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
 }
 
 .styled-table th {
@@ -177,15 +262,16 @@ hr {
 
 .styled-table td {
     padding: 14px;
-    border-bottom: 1px solid #e2e8f0;
-    color: #2d3748;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
 }
 
 .styled-table tr:hover {
-    background: #f1f5f9;
+    background: var(--text-primary);
+    opacity: 0.1;
 }
 
-/* View button inside table */
 .styled-table button {
     background: #10b981;
     color: white;
@@ -202,29 +288,35 @@ hr {
     transform: translateY(-2px);
 }
 
-/* Viewer Box */
 .viewer-box {
     display: none;
-    background: #ffffff;
+    background: var(--bg-secondary);
     padding: 20px;
     border-radius: 16px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     margin-top: 30px;
     text-align: left;
+    transition: all 0.3s ease;
+}
+
+.viewer-box h2 {
+    color: var(--text-primary);
+    transition: color 0.3s ease;
 }
 
 .viewer-box textarea {
     width: 100%;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--border-color);
     border-radius: 10px;
     padding: 12px;
     font-size: 15px;
     font-family: inherit;
-    background: #f8fafc;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     resize: none;
+    transition: all 0.3s ease;
 }
 
-/* Prevent global body flex from breaking perspective on revision page */
 .revision-body {
     display: block !important;
     height: auto !important;
@@ -232,16 +324,14 @@ hr {
     align-items: unset !important;
 }
 
-/* Flip card container */
 .flip-card {
     background-color: transparent;
     width: 320px;
     height: 220px;
-    perspective: 1000px; /* Enables 3D flip */
+    perspective: 1000px; 
     margin: 40px auto;
 }
 
-/* Inner wrapper */
 .flip-card-inner {
     position: relative;
     width: 100%;
@@ -251,12 +341,10 @@ hr {
     transform-style: preserve-3d;
 }
 
-/* Replace your .flip-card:hover with this class-based trigger */
 .flip-card-inner.is-flipped {
     transform: rotateY(180deg);
 }
 
-/* Front & back faces */
 .flip-card-front,
 .flip-card-back {
     position: absolute;
@@ -273,12 +361,10 @@ hr {
     justify-content: center;
 }
 
-/* Back face rotated */
 .flip-card-back {
     transform: rotateY(180deg);
 }
 
-/* Prevent clipping from parent containers */
 .flip-card,
 .flip-card-inner,
 .flip-card-front,
